@@ -1,0 +1,55 @@
+body{padding:0;
+    margin: 0;
+    background-color: #f5e4da;
+    font-family: "Montserrat", serif;
+}
+.body-container{ 
+    background-color: #f5e4da;
+    margin: 3%;
+}
+.container{
+    width: 500px;
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.image{width: 500px;
+border-radius: 10px;
+}
+.preparation{background-color: rgb(255, 247, 250);
+    padding: 15px;
+    border-radius: 10px;
+}
+.preparation h5{color: purple;
+    font-size: 14px;
+    margin: 10x 0px 0px 0px;}
+.preparation ul{ margin-top: 7px;}
+.preparation li{ padding: 5px;
+    font-size: 14px;
+}
+
+.ingridients h2{color: brown;
+    font-size: 20px;
+    margin:0px;}
+
+.ingridients li{padding: 5px 0px;
+    font-size: 14px}
+
+.instructions h2{color: brown;
+        font-size: 20px;
+        margin:0px;}
+
+.instructions li{padding: 5px 0px;
+        font-size: 14px}
+table{width: 100%;}
+
+.nutritions{ text-align: left;
+}
+
+.nutritions td{
+    padding:5px ;
+    border-bottom: 1px solid gray;
+    font-weight: 800;
+}
