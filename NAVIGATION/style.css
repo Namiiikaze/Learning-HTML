@@ -1,0 +1,12 @@
+.nav-bar{font-family: "Poppins", sans-serif;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.nav-div{display: flex; align-items: center;}
+
+
+li{list-style: none; display: inline-block;
+   justify-content: space-between;
+}
+
