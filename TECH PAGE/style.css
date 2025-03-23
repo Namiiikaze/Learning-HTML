@@ -1,0 +1,102 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: #fafafa;
+}
+
+header{
+    text-align: center;
+    padding: 50px 0px 10px 0px;
+}
+
+header .top-header .first{
+    font-weight: 200;
+    margin: 0;
+}
+
+
+header .top-header .second{
+    font-weight: 600;
+    margin: 5px 0px;
+}
+
+header .top-header p{
+    font-size: 13px;
+}
+
+
+.main-content-sec .content-sec{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-sec .box{
+    background-color: white;
+    height: 200px;
+    border-radius: 10px;
+    width: 250px;
+
+}
+
+.content-sec .icons{
+    height: 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.content-sec #super{
+    margin: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: left;
+    border-top: solid #63c7c5;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.content-sec #builder{
+    margin: 30px 0px 30px 0px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: left;
+    border-top: solid red;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.content-sec #kar{
+    margin: 30px 0px 30px 0px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: left;
+    border-top: solid #e2bb7f;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+}
+.content-sec #calculate{
+    margin: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: left;
+    border-top: solid #a3c6e4;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/*RESPONSIVENESS*/
+
+@media(max-width: 992px){
+    .main-content-sec .content-sec{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
