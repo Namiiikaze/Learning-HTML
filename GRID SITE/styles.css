@@ -103,3 +103,27 @@ button{
     background-color: #55204a ;
     grid-column: 5/7;
 }
+
+
+
+/*RESPONSIVENESS*/
+
+@media(max-width: 992px){
+    .grid-container{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+    nav{display: none;
+    }
+    .text-container p{
+        margin: 10px 20px;
+    }
+
+}
+@media(min-width:993px){
+    .hamburger-icon{
+        display: none;
+    }
+}
