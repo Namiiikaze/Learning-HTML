@@ -142,6 +142,33 @@ body{
     margin-bottom: 8px;
   }
 
+  .faq-section {
+    margin: 50px 50px;
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgb(72, 70, 70);
+    padding: 15px;
+  }
+
+  .faq-question {
+    font-size: 15px;
+    padding: 10px;
+    background-color: #303030;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 90%;
+  }
+
+  
+
+
   /*Responsiveness*/
 
   @media(min-width:993px){
@@ -225,6 +252,20 @@ body{
       width: 90%;
     }
 
+    .faq-section {
+      padding: 0 15px;
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+
+    .faq-question {
+      font-size: 10px;
+      padding: 10px;
+    }
+
+    
     
   }
 
