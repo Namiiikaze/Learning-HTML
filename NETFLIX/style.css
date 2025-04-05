@@ -1,0 +1,230 @@
+body{
+  margin: 0;
+      padding: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: black;
+    color: white;
+    background-image: url(./images/header-image.png);
+    
+} 
+
+.header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    top: 0;
+}
+
+.header-leftside{
+    display: flex;
+}
+
+.button-container #btn{
+    margin-bottom: 50px;
+    border: none;
+    border-radius: 20px;
+    font-size: 10px;
+    padding: 10px;
+    width: 70px;
+    cursor: pointer;
+}
+
+.body-content{
+    text-align: center;
+    margin-top: 100px;
+
+}
+
+.body-content h1{
+    font-size: 40px;
+}
+
+.body-content h3{
+    font-size: 15px;
+}
+
+.body-content p{
+    font-size: 12px;
+}
+
+.form #email{
+    background-color: #494846;
+    border-radius: 20px;
+    border: none solid ;
+    padding: 10px;
+    width: 200px;
+    font-size: 11px;
+}
+
+.form #submit{
+    background-color: red;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+    width: 100px;
+    font-size: 12px;
+}
+
+.grid-section {
+    padding: 20px 30px;
+  }
+
+  .section-title {
+   margin: 10px 50px ;
+  }
+  
+  .movie-row {
+    display: flex;
+    gap: 10px;
+    margin-left: 30px;
+    padding: 0 20px;
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    /*scroll-behavior: smooth*/;
+  }
+
+  .movie-row img {
+    width: 150px;
+    height: 240px;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  
+  .plans-section {
+    padding: 40px 30px;
+    max-width: 1200px;
+    margin-left: 50px;
+  }
+
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 10px;
+  }
+
+  .plan-card {
+    width: 250px;
+    height: 150px;
+    background-color: #183052;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid;
+  }
+
+  .plan-card h3 {
+    margin-right: 200px;
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
+  .price {
+    font-size: 15px;
+    margin: 10px 0;
+  }
+
+  .plan-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    font-size: 12px;
+
+  }
+  
+  .plan-card ul li {
+    margin-bottom: 8px;
+  }
+
+  /*Responsiveness*/
+
+  @media(min-width:993px){
+    .netflix-icon{
+        display: none;
+    }
+
+    .mobile-image{
+        display: none;
+    }
+}
+
+  @media (max-width: 992px) {
+    .header-logo{
+      display: none;}
+
+
+    .header-container {
+      padding: 10px 20px;
+    }
+
+    .button-container #btn {
+      margin-bottom: 20px;
+      font-size: 15px;
+      width: 100px;
+    }
+
+    .body-content {
+      margin-top: 60px;
+      padding: 0 20px;
+    }
+
+    .body-content h1 {
+      font-size: 20px;
+    }
+  
+    .body-content h3 {
+      font-size: 12px;
+    }
+  
+    .body-content p {
+      font-size: 10px;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .form #email {
+      width: 90%;
+    }
+  
+    .form #submit {
+      width: 95%;
+    }
+
+    .movie-row {
+      overflow-x: auto;
+      padding: 10px;
+    }
+  
+    .movie-row img {
+      width: 120px;
+      height: 180px;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .plans-section {
+    margin-left: 20px;
+    }
+
+    .plan-card {
+      width: 90%;
+    }
+
+    
+  }
+
