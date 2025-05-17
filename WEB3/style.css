@@ -73,7 +73,11 @@
     background-color: #00001a;
     color: white;
     padding: 20px;
+<<<<<<< HEAD
     height: 500px;
+=======
+    height: 400px;
+>>>>>>> a6eaf8a9ec5755bc2618bf06d6c567187ae17000
   }
 
   hr {
