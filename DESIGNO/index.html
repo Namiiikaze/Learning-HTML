@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <title>Frontend Mentor | Designo Agency Website Challenge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <nav class="header__nav nav">
+        <a href="index.html" class="logo"><img src="./logo-dark.png" alt="designo logo"></a>
+
+        <ul class="nav__list flex hide-upto-md">
+          <li><a href="about.html">our company</a></li>
+          <li><a href="locations.html">locations</a></li>
+          <li><a href="contact.html">contact</a></li>
+        </ul>
+
+        <button id="menu-toggler">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="overlay">
+      <nav class="mobile-nav">
+        <ul class="mobile-nav-list">
+          <li><a href="about.html">our company</a></li>
+          <li><a href="locations.html">locations</a></li>
+          <li><a href="contact.html">contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="home-main u-main-huge-pb relative">
+    <div class="container-sm">
+      <div class="home-hero">
+        <div class="home-hero__text-wrapper">
+          <h1 class="heading-1 heading text-white text-center lg:text-left">
+            Award-winning custom designs and digital branding solutions
+          </h1>
+          <p class="paragraph text-white text-center lg:text-left">
+            With over 10 years in the industry, we are experienced in creating fully responsive websites, app design,
+            and engaging brand experiences. Find out more about our services.
+          </p>
+          <a href="about.html" class="btn btn--white">learn more</a>
+        </div>
+        <div class="home-hero__img-wrapper">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="services">
+        <div class="web-design service">
+          <picture>
+            <img src="./image-web-design.jpg" alt="web design" width="1792px">
+          </picture>
+          <div class="service__text">
+            <h2 class="heading-2 text-white">Web Design</h2>
+            <a href="web-design.html">view projects <img src="./icon-right-arrow.svg"
+                alt="right arrow"></a>
+          </div>
+        </div>
+        <div class="app-design service">
+          <picture>
+            
+          
+            <img src="./image-app-design.jpg" alt="app design" width="868px">
+          </picture>
+          <div class="service__text">
+            <h2 class="heading-2 text-white">App Design</h2>
+            <a href="app-design.html">view projects <img src="./icon-right-arrow.svg"
+                alt="right arrow"></a>
+          </div>
+        </div>
+        <div class="graphic-design service">
+          <picture>
+            <img src="./image-graphic-design.jpg" alt="app design" width="868px">
+          </picture>
+          <div class="service__text">
+            <h2 class="heading-2 text-white">Graphic Design</h2>
+            <a href="graphic-design.html">view projects <img src="./icon-right-arrow.svg"
+                alt="right arrow"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="features grid lg:grid-col-3">
+        <div class="feature">
+          <div class="feature__img feature__img-1">
+            <img src="./illustration-passionate.svg" alt="man using laptop">
+          </div>
+          <div class="feature__text">
+            <h3 class="heading-3">Passionate</h3>
+            <p class="paragraph">
+              Each project starts with an in-depth brand research to ensure we only create products that serve a
+              purpose. We merge
+              art, design, and technology into exciting new solutions.
+            </p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature__img feature__img-2">
+            <img src="./illustration-resourceful.svg" alt="resourceful">
+          </div>
+          <div class="feature__text">
+            <h3 class="heading-3">Resourceful</h3>
+            <p class="paragraph">
+              Everything that we do has a strategic purpose. We use an agile approach in all of our projects and value
+              customer
+              collaboration. It guarantees superior results that fulfill our clients’ needs.
+            </p>
+          </div>
+        </div>
+
+        <div class="feature">
+          <div class="feature__img feature__img-3">
+            <img src="./illustration-friendly.svg" alt="friendly">
+          </div>
+          <div class="feature__text">
+            <h3 class="heading-3">Friendly</h3>
+            <p class="paragraph">
+              We are a group of enthusiastic folks who know how to put people first. Our success depends on our
+              customers, and we
+              strive to give them the best experience a company can provide.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer footer--more-pad relative">
+    <article class="cta-banner container">
+      <div class="cta-banner__inner has-roundness">
+        <div class="cta-banner__text text-center lg:text-left">
+          <h3 class="heading">Let’s talk about your project</h3>
+          <p class="paragraph">
+            Ready to take it to the next level? Contact us today and find out how our expertise can help your business
+            grow.
+          </p>
+        </div>
+        <a href="contact.html" class="btn btn--white">Get in touch</a>
+      </div>
+    </article>
+    <div class="container">
+      <nav class="footer__nav nav flex-col md:flex-row">
+        <a href="index.html" class="logo"><img src="./logo-light.png" alt="designo logo"></a>
+        <div class="footer__nav-hr hide-from-md"></div>
+        <ul class="footer__nav-list nav__list flex flex-col md:flex-row text-center">
+          <li><a href="about.html">our company</a></li>
+          <li><a href="locations.html">locations</a></li>
+          <li><a href="contact.html">contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__details md:text-left text-center">
+        <div class="footer__details-contact text-white">
+          <p class="text-bold">Designo Central Office</b></p>
+          <p>3886 Wellington Street</p>
+          <p>Toronto, Ontario M9C 3J5</p>
+        </div>
+
+        <div class="footer__details-contact text-white text-bold">
+          <p>Contact Us (Central Office)</b></p>
+          <p>P : +1 253-863-8967</b></p>
+          <p>M : contact@designo.co</b></p>
+        </div>
+
+        <div class="footer__social flex items-center">
+          <a href="https://facebook.com"><img src="./icon-facebook.svg" alt="facebook icon"></a>
+          <a href="https://youtube.com"><img src="./icon-youtube.svg" alt="youtube icon"></a>
+          <a href="https://twitter.com"><img src="./icon-twitter.svg" alt="twitter icon"></a>
+          <a href="https://pinterest.com"><img src="./icon-pinterest.svg"
+              alt="pinterest icon"></a>
+          <a href="https://instagram.com"><img src="./icon-instagram.svg"
+              alt="instagram icon"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
