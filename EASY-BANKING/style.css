@@ -1,0 +1,137 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+
+header .d-flex .gradient-btn{
+    background-color: transparent;
+    border: none;
+    color: white;
+    border-radius: 50px;
+    font-size: 14px;
+    padding: 10px;
+    width: 150px;
+    background-image: linear-gradient(to right,#33cc71,#34b7c1);
+}
+
+
+main .banner-section{
+    background-image: url("./Capture.PNG");
+    max-height: 500px;
+    background-repeat: no-repeat;
+    background-position: right ;
+    background-size: 150% 200%;
+}
+
+main .banner-section .banner-content{
+    padding-top: 100px;
+}
+
+main .banner-section .banner-content button{
+    background-color: transparent;
+    border: none;
+    color: white;
+    border-radius: 50px;
+    font-size: 14px;
+    padding: 10px;
+    width: 150px;
+    background-image: linear-gradient(to right,#33cc71,#34b7c1);
+}
+
+main .feature-section .text-title h3{
+    margin-top: 120px;
+}
+
+main .feature-section .features-grid {
+    margin-top: 30px;
+}
+
+main .feature-section .features-grid img{
+    margin-bottom: 30px;
+}
+
+main .feature-section .features-image{
+    margin-bottom: 70px;
+}
+
+main .feature-section .features-image h5{
+    font-size: 15px;
+}
+
+main .feature-section .features-image img{
+    margin-bottom: 20px;
+}
+
+main .feature-section .features-image p{
+    font-size: 13px;
+}
+
+main .feature-section .footer-section{
+    background-color: rgb(11, 6, 40);
+    padding: 50px;
+}
+
+main .feature-section ul{
+    list-style: none;
+}
+
+main .feature-section li{
+    color: white;
+}
+
+main .feature-section .right-footer button{
+    background-color: transparent;
+    border: none;
+    color: white;
+    border-radius: 50px;
+    font-size: 14px;
+    padding: 10px;
+    width: 150px;
+    background-image: linear-gradient(to right,#33cc71,#34b7c1);
+}
+
+main .feature-section .right-footer p{
+    color: white;
+}
+
+main .feature-section .right-footer{
+    text-align: right;
+}
+
+
+
+
+
+/* RESPONSIVENESS */
+@media(max-width:992px){
+    main .banner-section .banner-content{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+main .feature-section .text-title h3{
+    margin-top: 500px;
+}
+
+main .feature-section .features-grid {
+    text-align: center;
+}
+
+main .feature-section .text-title h3{
+    margin-top: 10px;
+    text-align: center;
+}
+
+main .feature-section .features-image{
+    text-align: center;
+}
+
+main .feature-section .footer-section{
+    text-align: center;
+}
+main .feature-section .right-footer{
+    text-align: center;
+}
+
+}
