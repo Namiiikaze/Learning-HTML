@@ -1,0 +1,269 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+header .logo-container p{
+ font-weight: 800;
+ font-size: 18px;
+ margin: 0;
+}
+
+header .nav-item{
+    font-size: 10px;
+    font-weight: 700;
+}
+
+header .d-flex .gradient-btn{
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 10px;
+    width: 150px;
+    background-color: black;
+}
+
+main .banner-section .banner-content{
+    padding: 150px;
+    background-color: black;
+    color: white;
+    height: 650px;
+    text-align: center;
+}
+
+main .banner-section .banner-content h4{
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    margin-top: 60px;
+    font-weight: bold;
+}
+
+
+main .banner-section .banner-content p{
+    font-size: 10px;
+    color: gray;
+}
+
+main .banner-section .banner-content .section-btn{
+    color: white;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 10px;
+    width: 200px;
+}
+
+main .banner-section2 .banner-content2{
+    padding: 150px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    height: 600px;
+}
+
+main .banner-section2 .banner-content2 h4{
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    margin-top: 60px;
+    font-weight: bold;
+}
+
+
+main .banner-section2 .banner-content2 p{
+    font-size: 10px;
+    color: gray;
+}
+
+main .banner-section2 .banner-content2 .section-btn2{
+    color: rgb(0, 0, 0);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 10px;
+    width: 200px;
+}
+
+main .banner-section3 .banner-content3{
+    padding: 150px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    height: 600px;
+}
+
+main .banner-section3 .banner-content3 h4{
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    margin-top: 60px;
+    font-weight: bold;
+}
+
+
+main .banner-section3 .banner-content3 p{
+    font-size: 10px;
+    color: gray;
+}
+
+main .banner-section3 .banner-content3 .section-btn3{
+    color: rgb(0, 0, 0);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 10px;
+    width: 200px;
+}
+
+main .stories .banner-img1{
+    background-image: url(./Image/mountains.jpg);
+    height: 500px;
+    width: 360px;
+}
+
+
+main .stories .banner-img1 .stories-content{
+    padding-top: 350px;
+    padding-left: 20px;
+    color: white;
+}
+
+main .stories .banner-img1 .stories-content h3{
+    font-size: 20px;
+}
+
+
+main .stories .banner-img1 .stories-content h4{
+    font-size: 15px;
+}
+main .stories .banner-img1 .stories-content hr{
+    width: 300px;
+}
+
+main .stories .banner-img2{
+    background-image: url(./Image/cityscapes.jpg);
+    height: 500px;
+    width: 360px;
+}
+
+main .stories .banner-img2 .stories-content{
+    padding-top: 350px;
+    padding-left: 20px;
+    color: white;
+}
+
+main .stories .banner-img2 .stories-content h3{
+    font-size: 20px;
+}
+
+
+main .stories .banner-img2 .stories-content h4{
+    font-size: 15px;
+}
+main .stories .banner-img2 .stories-content hr{
+    width: 300px;
+}
+
+main .stories .banner-img3{
+    background-image: url(./Image/18-days-voyage.jpg);
+    height: 500px;
+    width: 360px;
+}
+
+main .stories .banner-img3 .stories-content{
+    padding-top: 350px;
+    padding-left: 20px;
+    color: white;
+}
+
+main .stories .banner-img3 .stories-content h3{
+    font-size: 20px;
+}
+
+
+main .stories .banner-img3 .stories-content h4{
+    font-size: 15px;
+}
+main .stories .banner-img3 .stories-content hr{
+    width: 300px;
+}
+
+main .stories .banner-img4{
+    background-image: url(./Image/architecturals.jpg);
+    height: 500px;
+    width: 360px;
+    margin-bottom: 100px;
+}
+
+main .stories .banner-img4 .stories-content{
+    padding-top: 350px;
+    padding-left: 20px;
+    color: white;
+}
+
+main .stories .banner-img4 .stories-content h3{
+    font-size: 20px;
+}
+
+
+main .stories .banner-img4 .stories-content h4{
+    font-size: 15px;
+}
+main .stories .banner-img4 .stories-content hr{
+    width: 300px;
+}
+
+main .features .feature-cont{
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+main .features .feature-cont2{
+    text-align: center;
+}
+
+main .features .feature-cont h6{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+main .features .feature-cont2 h6{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+main .features .feature-cont img{
+    margin-bottom: 30px;
+}
+
+main .features .feature-cont2 img{
+    margin-bottom: 65px;
+}
+
+main .footer-section{
+    background-color: black;
+    padding: 50px;
+    color: white;
+}
+
+main .footer-section .footer-container{
+    font-weight: bolder;
+}
+
+main .footer-section ul{
+    list-style: none;
+    font-size: 10px;
+    font-weight: lighter;
+}
+
+main .footer-section .right-footer{
+    color: white;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    padding: 10px;
+    width: 200px;
+}
+
+main .footer-section .right-footer p{
+    font-weight: lighter;
+}
+
+
+
+
+
