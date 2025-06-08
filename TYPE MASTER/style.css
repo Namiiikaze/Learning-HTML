@@ -1,0 +1,140 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Barlow", sans-serif;
+}
+
+header .d-flex button{
+    background-color: #e6f0f1;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 10px;
+    color: #323843;
+    padding: 12px;
+}
+
+header .container{
+    margin-bottom: 50px;
+    background-color: white;
+}
+
+main .banner-content{
+    text-align: left;
+    padding-top: 80px;
+}
+
+main .banner-content h2{
+    font-weight: 800;
+    font-size: 35px;
+}
+
+main .banner-content p{
+    font-size: 13px;
+    font-weight: normal;
+    color: #6f7179;
+}
+
+main .banner-content .btn1{
+    background-color: #f06717;
+    font-size: 12px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    margin-right: 10px;
+}
+main .banner-content .btn2{
+    background-color: white;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 10px;
+    color: #323843;
+    padding: 12px;
+    border: none;
+}
+
+main .banner-content .btn2:hover{
+    background-color: #def4fb;
+}
+
+main .banner-image img{
+    border-radius: 10px;
+}
+
+main .about-section {
+    margin-bottom: 70px;
+}
+main .about-section .about-img1 img{
+    border-radius: 15px;
+    background-color: #f06717 ;
+}
+
+main .about-section .about-img2 img{
+    border-radius: 15px;
+}
+
+main .about-section .about-content{
+    text-align: left;
+    padding-top: 70px;
+}
+
+main .about-section .about-content h2{
+    font-weight: 800;
+    font-size: 25px;
+}
+
+main .about-section .about-content p{
+    font-size: 12px;
+    font-weight: normal;
+    color: #6f7179;
+     
+}
+
+main .feature-section .feature-cont{
+    text-align: left;
+    margin-bottom: 100px;
+}
+main .feature-section .feature-cont img{
+    background-color: #f06717;
+    padding: 13px;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+main .feature-section .feature-cont h4{
+    font-weight: 700;
+    font-size: 20px;
+}
+
+main .feature-section .feature-cont p{
+    font-size: 12px;
+    font-weight: normal;
+    color: #6f7179;
+}
+
+main .footer{
+    text-align: center;
+    font-size: 15px;
+    color: #6f7179;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:992px) {
+    main .banner-content{
+    text-align: center;
+    padding-top: 80px;
+}
+
+main .about-section .about-content{
+    text-align: center;
+    font-weight: 800;
+    font-size: 25px;
+}
+
+main .feature-section .feature-cont{
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+}
