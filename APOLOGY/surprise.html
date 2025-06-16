@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pick Your Surprise</title>
+  <link rel="stylesheet" href="surprise.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Pick a Box</h1>
+    <p class="subtext">A little surprise just for you…</p>
+
+    <div class="box-container">
+      <div class="surprise-box" id="box1">
+        <p>Box 1</p>
+        <div class="hidden-content">
+          <img src="./woman's wonderful Hand bag.jpeg" alt="Handbag" />
+          <img src="./These vanilla cupcakes are simple, sweet, and….jpeg" alt="Cupcake" />
+          <p class="item-label">Handbag & Cupcakes 🎀🧁</p>
+        </div>
+      </div>
+
+      <div class="surprise-box" id="box2">
+        <p>Box 2</p>
+        <div class="hidden-content">
+          <img src="./ARE YOU ON A BUDGET❗️ You can any of these 25ml….jpeg" alt="Perfume" />
+          <img src="./Daniel Wellington Womens Watch luxury, womens….jpeg" alt="Watch" />
+          <p class="item-label">Perfume & Wristwatch ✨⌚</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const box1 = document.getElementById("box1");
+    const box2 = document.getElementById("box2");
+    let boxOpened = false;
+  
+    function disableOtherBox(selectedBox, otherBox) {
+      selectedBox.classList.add("opened");
+      otherBox.classList.add("disabled");
+      boxOpened = true;
+    }
+  
+    box1.addEventListener("click", function () {
+      if (!boxOpened) {
+        disableOtherBox(box1, box2);
+      }
+    });
+  
+    box2.addEventListener("click", function () {
+      if (!boxOpened) {
+        disableOtherBox(box2, box1);
+      }
+    });
+  </script>
+</body>
+</html>

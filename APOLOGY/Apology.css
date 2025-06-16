@@ -1,0 +1,197 @@
+body {
+    margin: 0;
+    padding: 0;     
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    background-image: url(./mohamed-nohassi-QqJiA8cZ3Ds-unsplash.jpg);
+  }
+
+  .romantic-navbar {
+    background: rgba(255, 240, 245, 0.75); /* soft translucent pink */
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 182, 193, 0.4);
+    transition: background 0.3s ease;
+  }
+  
+  .romantic-navbar .navbar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .logo-container p {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.8rem;
+    color: #a0522d; /* warm brown */
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(255, 182, 193, 0.5);
+    animation: fadeIn 2s ease-out;
+  }
+  
+  /* Optional fade-in effect */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+
+
+main .banner-section1 .deep-reflection {
+  padding: 100px;
+  color: white;
+  height:500px ;
+  text-align: left;
+}
+
+main .banner-section1 .reflectionimg{
+  background-image: url(./ebe297b8-4f08-4d48-82cf-c87d4ea67486.jpeg);
+  background-position: center;
+  height: 500px;
+  width: 750px;
+  padding: 50px;
+}
+
+main .banner-section1 .reflectionimg h4{
+  padding: 50px;
+  color: white;
+}
+
+main .banner-section2 .accountabilityimg{
+  background-image: url(./Two\ Hearts\ Continuous\ Line\ Drawing\ Hearts\ Couple\ Trendy\ Minimalist\ Illustration\ One\ Line\ _\ Premium\ Vector.jpeg);
+  background-position: center;
+  height: 500px;
+  width: 750px;
+  padding: 50px;
+}
+
+main .banner-section2 .accountability{
+  padding: 100px;
+  color: white;
+  height:500px ;
+  text-align: left;
+}
+
+main .banner-section3 .planimg{
+  background-image: url(./download\ \(1\).jpeg);
+  background-position: center;
+  height: 500px;
+  width: 750px;
+  padding: 50px;
+}
+
+main .banner-section3 .plan{
+  padding: 100px;
+  color: white;
+  height:500px ;
+  text-align: left;
+}
+
+main .reflection-text{
+  color: white;
+}
+
+.reflection-text {
+  background: rgba(255, 240, 245, 0.7); /* soft blush pink overlay */
+  padding: 2rem 1.5rem;
+  margin: 2rem auto;
+  max-width: 700px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(255, 182, 193, 0.2);
+  backdrop-filter: blur(6px);
+  text-align: center;
+  animation: fadeInUp 1.5s ease;
+}
+
+.reflection-text h6 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #4b2e2e;
+  font-weight: normal;
+  letter-spacing: 0.3px;
+}
+
+.reflection-text em {
+  font-style: italic;
+  color: #a0522d; /* soft romantic brown */
+  font-weight: bold;
+}
+
+/* Optional subtle fade-in from below */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .reflectionimg,
+  .accountabilityimg,
+  .planimg {
+      min-height: 200px;
+      text-align: center;
+      padding: 1rem;
+  }
+
+  .deep-reflection, 
+  .accountability, 
+  .plan {
+      margin: 1rem auto;
+      padding: 1.5rem;
+  }
+
+  .logo-container p {
+      font-size: 1.1rem;
+  }
+
+  h4 {
+      font-size: 1.3rem;
+  }
+
+  p {
+      font-size: 0.95rem;
+  }
+
+  h6 {
+      font-size: 1rem;
+      padding: 1rem 0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .reflectionimg,
+  .accountabilityimg,
+  .planimg {
+      min-height: 180px;
+  }
+
+  .logo-container p {
+      font-size: 1rem;
+  }
+
+  h4 {
+      font-size: 1.1rem;
+  }
+
+  p {
+      font-size: 0.9rem;
+  }
+
+  h6 {
+      font-size: 0.95rem;
+  }
+}
