@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Finance Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2 class="logo">finance</h2>
+      <nav>
+        <ul>
+          <li class="active">Overview</li>
+          <li>Transactions</li>
+          <li>Budgets</li>
+          <li>Pots</li>
+          <li>Recurring Bills</li>
+        </ul>
+      </nav>
+      <div class="minimize">Minimize Menu</div>
+    </aside>
+
+    <main class="main-content">
+      <h1>Overview</h1>
+      <div class="cards">
+        <div class="card balance">
+          <p>Current Balance</p>
+          <h2>$4,836.00</h2>
+        </div>
+        <div class="card">
+          <p>Income</p>
+          <h2>$3,814.25</h2>
+        </div>
+        <div class="card">
+          <p>Expenses</p>
+          <h2>$1,700.50</h2>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="pots card">
+          <h3>Pots</h3>
+          <p class="total">Total Saved: <strong>$850</strong></p>
+          <ul>
+            <li>Savings: $159</li>
+            <li>Gift: $40</li>
+            <li>Concert Ticket: $110</li>
+            <li>New Laptop: $10</li>
+          </ul>
+        </div>
+
+        <div class="budgets card">
+          <h3>Budgets</h3>
+          <p class="centered"><strong>$338</strong> of $975 limit</p>
+          <ul>
+            <li>Entertainment: $50</li>
+            <li>Bills: $750</li>
+            <li>Dining Out: $75</li>
+            <li>Personal Care: $100</li>
+          </ul>
+        </div>
+
+        <div class="transactions card">
+          <h3>Transactions</h3>
+          <ul>
+            <li>Emma Richardson <span class="green">+$75.50</span></li>
+            <li>Savory Bites Bistro <span class="red">-$55.50</span></li>
+            <li>Daniel Carter <span class="red">-$42.30</span></li>
+            <li>Sun Park <span class="green">+$120.00</span></li>
+            <li>Urban Services Hub <span class="red">-$65.00</span></li>
+          </ul>
+        </div>
+
+        <div class="recurring card">
+          <h3>Recurring Bills</h3>
+          <ul>
+            <li>Paid Bills: $190.00</li>
+            <li>Total Upcoming: $194.98</li>
+            <li>Due Soon: $59.98</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
