@@ -1,6 +1,10 @@
 body {
     margin: 0;
     padding: 0;
+<<<<<<< HEAD
+=======
+    background-image: url('https://i.imgur.com/gFJhJHn.jpg'); /* Paper texture */
+>>>>>>> 967fb8d70ee9a6f879987ab7af1b15383627ece8
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
