@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout – Elite Interiors</title>
+
+<style>
+/* ===============================
+   RESET & VARIABLES
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-main: #ffffff;
+  --bg-soft: #f4f6f8;
+  --bg-muted: #eef1f4;
+
+  --text-main: #111827;
+  --text-muted: #6b7280;
+
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+
+  --border-light: #e5e7eb;
+  --shadow-soft: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 1.5rem;
+}
+
+/* ===============================
+   ANIMATION
+================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+/* ===============================
+   NAVBAR
+================================ */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-light);
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 0;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.nav-links a {
+  margin-left: 2rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: var(--text-main);
+}
+
+.cart-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--border-light);
+  background: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: all 0.25s ease;
+}
+
+.cart-button:hover {
+  background: var(--bg-soft);
+  transform: translateY(-1px);
+}
+
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+}
+
+/* ===============================
+   CHECKOUT FORM
+================================ */
+#checkout-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 3rem 0;
+}
+
+.checkout-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+}
+
+.checkout-sections {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.checkout-section {
+  background: var(--bg-soft);
+  border: 1px solid var(--border-light);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem 2rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--border-light);
+  font-size: 0.9rem;
+}
+
+/* ===============================
+   ORDER SUMMARY
+================================ */
+.order-summary {
+  flex: 1;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-light);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+}
+
+.order-summary h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.order-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-light);
+}
+
+.order-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.summary-total {
+  border-top: 1px solid var(--border-light);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.6rem;
+  border-radius: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+/* ===============================
+   FOOTER
+================================ */
+footer {
+  background: var(--bg-soft);
+  border-top: 1px solid var(--border-light);
+  margin-top: 4rem;
+  padding: 2rem 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width: 768px) {
+  .checkout-grid {
+    flex-direction: column;
+  }
+  .order-summary {
+    width: 100%;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .nav-links {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-content">
+    <a href="index.html" class="logo">Elite Interiors</a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <a href="cart.html" class="cart-button">
+      Cart
+      <span class="cart-count" style="display: none;">0</span>
+    </a>
+  </div>
+</header>
+
+<div class="container">
+  <div id="empty-cart-message" style="display:none; text-align:center; padding:5rem 0;" class="fade-up">
+    <h1>Your cart is empty</h1>
+    <a href="products.html">Continue Shopping</a>
+  </div>
+
+  <div id="checkout-content" style="display:none;" class="checkout-grid fade-up">
+    <a href="cart.html" class="back-link fade-up">← Back to Cart</a>
+    <form id="checkout-form" class="checkout-grid">
+      <div class="checkout-sections fade-up">
+        <!-- Contact Info -->
+        <div class="checkout-section fade-up">
+          <div class="section-title">Contact Information</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>First Name *</label>
+              <input type="text" name="firstName" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name *</label>
+              <input type="text" name="lastName" required>
+            </div>
+            <div class="form-group">
+              <label>Email *</label>
+              <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label>Phone *</label>
+              <input type="tel" name="phone" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping -->
+        <div class="checkout-section fade-up">
+          <div class="section-title">Shipping Address</div>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Street Address *</label>
+              <input type="text" name="address" required>
+            </div>
+            <div class="form-group">
+              <label>City *</label>
+              <input type="text" name="city" required>
+            </div>
+            <div class="form-group">
+              <label>State/Province *</label>
+              <input type="text" name="state" required>
+            </div>
+            <div class="form-group">
+              <label>ZIP/Postal Code *</label>
+              <input type="text" name="zipCode" required>
+            </div>
+            <div class="form-group">
+              <label>Country *</label>
+              <input type="text" name="country" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="checkout-section fade-up">
+          <div class="section-title">Payment Information</div>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Card Number *</label>
+              <input type="text" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+            </div>
+            <div class="form-group full-width">
+              <label>Cardholder Name *</label>
+              <input type="text" name="cardName" required>
+            </div>
+            <div class="form-group">
+              <label>Expiry Date *</label>
+              <input type="text" name="expiryDate" placeholder="MM/YY" required>
+            </div>
+            <div class="form-group">
+              <label>CVV *</label>
+              <input type="text" name="cvv" placeholder="123" required>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-summary fade-up">
+        <h2>Order Summary</h2>
+        <div class="order-items" id="order-items"></div>
+        <div class="summary-row"><span>Subtotal</span><span id="subtotal">$0</span></div>
+        <div class="summary-row"><span>Shipping</span><span>$200</span></div>
+        <div class="summary-row"><span>Tax (8%)</span><span id="tax">$0</span></div>
+        <div class="summary-total"><span>Total</span><span id="total">$0</span></div>
+        <button type="submit" class="btn-primary">Place Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <div class="container footer-bottom">
+    &copy; 2026 Elite Interiors. All rights reserved.
+  </div>
+</footer>
+
+<script src="products-data.js"></script>
+<script src="cart.js"></script>
+<script>
+const cart = cartManager.getCart();
+
+if(cart.length === 0){
+  document.getElementById('empty-cart-message').style.display = 'block';
+}else{
+  document.getElementById('checkout-content').style.display = 'flex';
+
+  const orderItemsContainer = document.getElementById('order-items');
+  orderItemsContainer.innerHTML = cart.map(item => `
+    <div class="order-item fade-up">
+      <img src="${item.image}" alt="${item.name}">
+      <div class="order-item-info">
+        <p>${item.name}</p>
+        <p>Qty: ${item.quantity}</p>
+        <p>$${(item.price*item.quantity).toLocaleString()}</p>
+      </div>
+    </div>
+  `).join('');
+
+  const subtotal = cartManager.getCartTotal();
+  const shipping = 200;
+  const tax = Math.round(subtotal * 0.08);
+  const total = subtotal + shipping + tax;
+
+  document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString()}`;
+  document.getElementById('tax').textContent = `$${tax.toLocaleString()}`;
+  document.getElementById('total').textContent = `$${total.toLocaleString()}`;
+}
+
+// Fade-up on scroll
+function fadeUpOnScroll(){
+  const elements = document.querySelectorAll('.fade-up');
+  const windowBottom = window.innerHeight * 0.85;
+
+  elements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if(rect.top < windowBottom){
+      el.style.animationDelay = el.dataset.delay || '0s';
+      el.style.opacity = 1;
+      el.style.transform = 'translateY(0)';
+      el.style.animation = 'fadeUp 0.8s ease forwards';
+    }
+  });
+}
+
+window.addEventListener('scroll', fadeUpOnScroll);
+fadeUpOnScroll();
+
+document.getElementById('checkout-form')?.addEventListener('submit', e=>{
+  e.preventDefault();
+  cartManager.clearCart();
+  window.location.href='order-confirmation.html';
+});
+</script>
+</body>
+</html>
