@@ -195,7 +195,7 @@ section {
 .hero p {
   font-size: 1.125rem;
   color: var(--text-muted);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .hero-buttons {
@@ -239,6 +239,8 @@ section {
   text-align: center;
   box-shadow: var(--shadow-soft);
   transition: transform 0.35s ease-in-out, box-shadow 0.35s ease-in-out;
+  text-decoration: none;
+  color: inherit;
 }
 
 .feature-card:hover {
@@ -302,23 +304,6 @@ section {
   transition: all 0.3s ease-in-out;
 }
 
-/* ===============================
-   CTA
-================================ */
-.cta-section {
-  background: linear-gradient(135deg, var(--accent), #6366f1);
-  color: #fff;
-  text-align: center;
-  border-radius: 1.25rem;
-  margin: 6rem auto;
-  padding: 4.5rem 2rem;
-}
-
-.cta-section p {
-  opacity: 0.9;
-  margin-bottom: 2rem;
-  transition: opacity 0.3s ease-in-out;
-}
 
 /* ===============================
    FOOTER
@@ -433,12 +418,81 @@ section {
   <div class="hero-content">
     <h1>Transform Your Space Into a Masterpiece</h1>
     <p>Premium interior design solutions crafted to reflect your style.</p>
+    <p>From single rooms to full home transformations we design with purpose.</p>
     <div class="hero-buttons">
       <a href="products.html" class="btn btn-primary">Explore Products</a>
       <a href="contact.html" class="btn btn-secondary">Get in Touch</a>
     </div>
   </div>
 </section>
+
+<!-- SHOP BY SPACE -->
+<section class="section-bg">
+  <div class="container">
+    <div class="section-header">
+      <h2>Shop by Space</h2>
+      <p>Find designs tailored to every part of your home</p>
+    </div>
+
+   <div class="feature-grid">
+
+  <a href="products.html?category=Living Room" class="feature-card">
+    <div class="feature-icon">🛋️</div>
+    <h3>Living Room</h3>
+    <p>Comfortable, stylish pieces made to impress.</p>
+  </a>
+
+  <a href="products.html?category=Bedroom" class="feature-card">
+    <div class="feature-icon">🛏️</div>
+    <h3>Bedroom</h3>
+    <p>Relaxing designs for rest and balance.</p>
+  </a>
+
+  <a href="products.html?category=Dining" class="feature-card">
+    <div class="feature-icon">🍽️</div>
+    <h3>Dining</h3>
+    <p>Elegant setups for memorable moments.</p>
+  </a>
+
+  <a href="products.html?category=Office" class="feature-card">
+    <div class="feature-icon">🏢</div>
+    <h3>Office</h3>
+    <p>Functional designs that boost productivity.</p>
+  </a>
+
+</div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>How It Works</h2>
+      <p>A simple, stress-free design process</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">①</div>
+        <h3>Choose Your Style</h3>
+        <p>Browse products and inspiration.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">②</div>
+        <h3>Consult With Us</h3>
+        <p>We refine ideas to fit your space.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">③</div>
+        <h3>We Deliver & Install</h3>
+        <p>Execution handled professionally.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section>
   <div class="container">
@@ -466,13 +520,6 @@ section {
     </div>
   </div>
 </section>
-
-<section class="cta-section">
-  <h2>Ready to Transform Your Space?</h2>
-  <p>Let’s create something extraordinary together.</p>
-  <a href="contact.html" class="btn btn-secondary">Start Your Project</a>
-</section>
-
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-brand">
@@ -503,6 +550,19 @@ section {
     © 2026 Elite Interiors. All rights reserved.
   </div>
 </footer>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const selectedCategory = urlParams.get("category");
+
+if (selectedCategory && categories.includes(selectedCategory)) {
+  document.querySelectorAll(".category-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.textContent === selectedCategory);
+  });
+  render(selectedCategory);
+}
+</script>
+
 
 </body>
 </html>

@@ -14,17 +14,29 @@ class CartManager {
     this.updateCartCount();
   }
 
-  addToCart(product) {
-    const existingItem = this.cart.find(item => item.id === product.id);
-    
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      this.cart.push({ ...product, quantity: 1 });
-    }
-    
-    this.saveCart();
+addToCart(productId) {
+  const cart = this.getCart();
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+
+  const existing = cart.find(item => item.id === productId);
+
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({
+      id: product.id,       // ✅ REQUIRED
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      category: product.category,
+      quantity: 1
+    });
   }
+
+  this.saveCart(cart);
+}
+
 
   removeFromCart(productId) {
     this.cart = this.cart.filter(item => item.id !== productId);

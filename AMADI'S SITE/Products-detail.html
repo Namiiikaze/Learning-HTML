@@ -370,18 +370,95 @@ footer {
 </footer>
 
 <script>
+/* ===============================
+   CART LOGIC (LOCAL STORAGE)
+================================ */
+
+function getCart() {
+  return JSON.parse(localStorage.getItem("elite_cart")) || [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem("elite_cart", JSON.stringify(cart));
+}
+
+function updateCartCount() {
+  const cart = getCart();
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const badge = document.querySelector(".cart-count");
+
+  if (!badge) return;
+
+  if (count > 0) {
+    badge.textContent = count;
+    badge.style.display = "inline-block";
+  } else {
+    badge.style.display = "none";
+  }
+}
+
+/* ===============================
+   ADD TO CART
+================================ */
+function addToCart() {
+  const cart = getCart();
+
+  const product = {
+    name: document.querySelector(".product-info h1").textContent,
+    price: parseFloat(
+      document.querySelector(".product-info .price").textContent.replace("$", "")
+    ),
+    image: document.querySelector(".product-image img").src,
+    quantity: 1
+  };
+
+  const existing = cart.find(item => item.name === product.name);
+
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push(product);
+  }
+
+  saveCart(cart);
+  updateCartCount();
+
+  // Optional feedback
+  alert("Added to cart");
+}
+
+/* ===============================
+   PRODUCT DATA (FOR DYNAMIC LOAD)
+================================ */
 const products = [
-  { name: "Luxury Sofa", category: "Living Room", price: 1200, image: "https://images.unsplash.com/photo-1582582621959-48d27397dc69", desc: "Comfort meets elegance in a modern form." },
-  { name: "Minimal Bed Frame", category: "Bedroom", price: 980, image: "https://images.unsplash.com/photo-1615874959474-d609969a20ed", desc: "Clean lines with premium wood finishing." },
-  { name: "Executive Chair", category: "Office", price: 620, image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf", desc: "Built for productivity and comfort." }
+  {
+    name: "Luxury Sofa",
+    category: "Living Room",
+    price: 1200,
+    image: "https://images.unsplash.com/photo-1582582621959-48d27397dc69",
+    desc: "Comfort meets elegance in a modern form."
+  },
+  {
+    name: "Minimal Bed Frame",
+    category: "Bedroom",
+    price: 980,
+    image: "https://images.unsplash.com/photo-1615874959474-d609969a20ed",
+    desc: "Clean lines with premium wood finishing."
+  },
+  {
+    name: "Executive Chair",
+    category: "Office",
+    price: 620,
+    image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf",
+    desc: "Built for productivity and comfort."
+  }
 ];
 
 const params = new URLSearchParams(window.location.search);
 const productName = params.get("name");
-
 const product = products.find(p => p.name === productName);
 
-if(product){
+if (product) {
   document.querySelector(".product-image img").src = product.image;
   document.querySelector(".product-image img").alt = product.name;
   document.querySelector(".product-info h1").textContent = product.name;
@@ -389,7 +466,13 @@ if(product){
   document.querySelector(".product-info .price").textContent = `$${product.price}`;
   document.querySelector(".product-info .description").textContent = product.desc;
 }
+
+/* ===============================
+   INIT
+================================ */
+updateCartCount();
 </script>
+
 
 
 </body>
