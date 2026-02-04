@@ -439,4 +439,28 @@ input:focus, textarea:focus {
 </footer>
 
 </body>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBn3HglhG0LB-1dAADDvxdyzQYS6ImgIUY",
+    authDomain: "elite-interiors-d3fbf.firebaseapp.com",
+    projectId: "elite-interiors-d3fbf",
+    storageBucket: "elite-interiors-d3fbf.firebasestorage.app",
+    messagingSenderId: "721757613694",
+    appId: "1:721757613694:web:082a91392bea7c201d722f",
+    measurementId: "G-G1H795E41N"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </html>
