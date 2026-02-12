@@ -180,6 +180,21 @@ body {
 img[src$=".HEIC"], img[src$=".heic"] {
   image-rendering: -webkit-optimize-contrast;
 }
+
+/* Fade out overlay */
+.fade-out-overlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+  transition: opacity 2s ease-in-out;
+}
+
+.fade-out-overlay.active {
+  opacity: 1;
+}
 </style>
 </head>
 
@@ -225,6 +240,9 @@ img[src$=".HEIC"], img[src$=".heic"] {
 <!-- Text Overlay -->
 <div class="overlay-text" id="overlayText"></div>
 
+<!-- Fade out overlay -->
+<div class="fade-out-overlay" id="fadeOutOverlay"></div>
+
 <!-- Background Music (1 song) -->
 <audio id="song1" preload="auto">
   <source src="./WEBSITE/Savy_Henry_-_LOML__A_Performance_Video_128k.mp3" type="audio/mpeg">
@@ -241,9 +259,13 @@ const backgroundLayer = document.getElementById('backgroundLayer');
 const overlayText = document.getElementById('overlayText');
 const musicBtn = document.getElementById('musicBtn');
 const nowPlaying = document.getElementById('nowPlaying');
+const fadeOutOverlay = document.getElementById('fadeOutOverlay');
 
 // Detect if mobile
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 1024;
+
+// Flag to prevent multiple redirects
+let isRedirecting = false;
 
 /* =========================
    MUSIC SYSTEM
@@ -344,7 +366,7 @@ let previousMedia = null;
 let previousBgMedia = null;
 
 const FADE_DURATION = 1500;
-const SLIDE_DURATION = 10000; // Reduced from 12s
+const SLIDE_DURATION = 10000;
 const KENBURNS_DELAY = 2000;
 
 /* =========================
@@ -476,23 +498,48 @@ function showMedia() {
 }
 
 /* =========================
+   REDIRECT TO LETTER PAGE
+========================= */
+
+function redirectToLetter() {
+  if (isRedirecting) return;
+  isRedirecting = true;
+
+  console.log("Slideshow ended, redirecting to letter page...");
+  
+  // Show fade out overlay
+  fadeOutOverlay.classList.add('active');
+  
+  // Stop and fade music quickly
+  const fadeSteps = 10;
+  const fadeInterval = 50;
+  let step = 0;
+  
+  const fadeOut = setInterval(() => {
+    step++;
+    backgroundMusic.volume = Math.max(0, 0.7 - (0.7 * step / fadeSteps));
+    
+    if (step >= fadeSteps) {
+      clearInterval(fadeOut);
+      backgroundMusic.pause();
+      backgroundMusic.volume = 0.7; // Reset for next time
+      
+      // Redirect after a short delay
+      setTimeout(() => {
+        window.location.href = "letter.html";
+      }, 500);
+    }
+  }, fadeInterval);
+}
+
+/* =========================
    NEXT SLIDE
 ========================= */
 
 function nextMedia() {
-  // When slideshow ends, redirect to letter page
+  // Check if we've reached the end
   if (index >= media.length - 1) {
-    // Fade out music
-    let fadeOutInterval = setInterval(() => {
-      if (backgroundMusic.volume > 0.05) {
-        backgroundMusic.volume -= 0.05;
-      } else {
-        clearInterval(fadeOutInterval);
-        backgroundMusic.pause();
-        // Redirect to letter page
-        window.location.href = "letter.html";
-      }
-    }, 100);
+    redirectToLetter();
     return;
   }
 
