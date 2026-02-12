@@ -26,12 +26,19 @@ body {
   background: black;
 }
 
-/* BLURRED BACKGROUND LAYER */
+/* BLURRED BACKGROUND LAYER - DISABLED ON MOBILE */
 .background-layer {
   position: absolute;
   inset: 0;
   overflow: hidden;
   z-index: 0;
+  display: none; /* Disabled by default for performance */
+}
+
+@media (min-width: 1024px) {
+  .background-layer {
+    display: block;
+  }
 }
 
 .bg-media {
@@ -46,7 +53,7 @@ body {
   transform: scale(1.1);
   
   opacity: 0;
-  transition: opacity 2s ease-in-out;
+  transition: opacity 1s ease-in-out;
 }
 
 .bg-media.active {
@@ -68,7 +75,7 @@ body {
   position: absolute;
   
   max-width: 95%;
-  max-height: 95%;
+  max-height: 95%;;
   width: auto;
   height: auto;
   
@@ -79,16 +86,11 @@ body {
   object-position: center;
 
   opacity: 0;
-  transform: scale(1);
-  transition: opacity 2s ease-in-out;
   
-  filter: drop-shadow(0 0 30px rgba(0,0,0,0.5));
+  /* Simple fade only - no transforms */
+  transition: opacity 1.5s ease-in-out;
   
-  /* Hardware acceleration */
-  will-change: opacity;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
 }
 
 .media.active {
@@ -101,25 +103,9 @@ body {
   z-index: 1;
 }
 
-/* Ken Burns effect - only for images, not videos */
-.media.kenburns:not(video) {
-  transition: opacity 2s ease-in-out, transform 12s ease-in-out;
-  transform: scale(1.15) translateZ(0);
-}
-
-/* Disable Ken Burns on mobile for performance */
-@media (max-width: 768px) {
-  .media.kenburns:not(video) {
-    transform: scale(1) translateZ(0);
-    transition: opacity 2s ease-in-out;
-  }
-}
-
-/* VIDEO OPTIMIZATION */
-video.media {
-  /* Remove transform transitions for videos */
-  transition: opacity 2s ease-in-out !important;
-  transform: none !important;
+/* Completely disable Ken Burns effect */
+.media.kenburns {
+  /* No animation */
 }
 
 /* TEXT OVERLAY */
@@ -142,7 +128,7 @@ video.media {
   pointer-events: none;
 
   opacity: 0;
-  transition: opacity 2s ease-in-out;
+  transition: opacity 1.5s ease-in-out;
   z-index: 10;
 }
 
@@ -194,30 +180,13 @@ video.media {
 img[src$=".HEIC"], img[src$=".heic"] {
   image-rendering: -webkit-optimize-contrast;
 }
-
-/* Loading indicator for videos */
-.loading {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 1rem;
-  z-index: 15;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.loading.show {
-  opacity: 0.7;
-}
 </style>
 </head>
 
 <body>
 
 <div class="slideshow-container">
-  <!-- BLURRED BACKGROUND LAYER -->
+  <!-- BLURRED BACKGROUND LAYER (Desktop only) -->
   <div class="background-layer" id="backgroundLayer"></div>
 
   <!-- MAIN SLIDESHOW -->
@@ -229,11 +198,11 @@ img[src$=".HEIC"], img[src$=".heic"] {
     <img class="media" src="./WEBSITE/b63e4ebb-f786-4b40-8076-6599f36e749f.jpg" alt="Memory 4">
     <img class="media" src="./WEBSITE/c4d3927a-bebc-4c79-b03d-40685e07d01e.jpg" alt="Memory 5">
     
-    <video class="media" muted playsinline preload="metadata" webkit-playsinline>
+    <video class="media" muted playsinline preload="none" webkit-playsinline>
       <source src="./WEBSITE/1fddd105-f408-4577-b60a-3d5b821f4dc7.mp4" type="video/mp4">
     </video>
 
-    <video class="media" muted playsinline preload="metadata" webkit-playsinline>
+    <video class="media" muted playsinline preload="none" webkit-playsinline>
       <source src="./MORE VIDEOS/IMG_8061.MP4" type="video/mp4">
     </video>
     
@@ -243,7 +212,7 @@ img[src$=".HEIC"], img[src$=".heic"] {
     <img class="media" src="./MORE VIDEOS/WhatsApp Image 2026-02-10 at 4.42.22 PM.jpeg" alt="Memory 9">
     <img class="media" src="./MORE VIDEOS/WhatsApp Image 2026-02-10 at 4.42.30 PM.jpeg" alt="Memory 10">
     
-    <video class="media" muted playsinline preload="metadata" webkit-playsinline>
+    <video class="media" muted playsinline preload="none" webkit-playsinline>
       <source src="./WEBSITE/4f30b6d5-955f-4b43-a708-e2666a7b5e87.mp4" type="video/mp4">
     </video>
     
@@ -255,9 +224,6 @@ img[src$=".HEIC"], img[src$=".heic"] {
 
 <!-- Text Overlay -->
 <div class="overlay-text" id="overlayText"></div>
-
-<!-- Loading Indicator -->
-<div class="loading" id="loading">Loading...</div>
 
 <!-- Background Music (1 song) -->
 <audio id="song1" preload="auto">
@@ -275,7 +241,9 @@ const backgroundLayer = document.getElementById('backgroundLayer');
 const overlayText = document.getElementById('overlayText');
 const musicBtn = document.getElementById('musicBtn');
 const nowPlaying = document.getElementById('nowPlaying');
-const loading = document.getElementById('loading');
+
+// Detect if mobile
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 1024;
 
 /* =========================
    MUSIC SYSTEM
@@ -313,38 +281,40 @@ function toggleMusic() {
 musicBtn.onclick = toggleMusic;
 
 /* =========================
-   BACKGROUND LAYER
+   BACKGROUND LAYER (Desktop only)
 ========================= */
 
 const backgroundMedia = [];
 
-media.forEach((item, idx) => {
-  let bgElement;
+if (!isMobile) {
+  media.forEach((item, idx) => {
+    let bgElement;
 
-  if (item.tagName === 'VIDEO') {
-    bgElement = document.createElement('video');
-    bgElement.muted = true;
-    bgElement.playsInline = true;
-    bgElement.preload = 'metadata'; // Changed from 'auto' for performance
+    if (item.tagName === 'VIDEO') {
+      bgElement = document.createElement('video');
+      bgElement.muted = true;
+      bgElement.playsInline = true;
+      bgElement.preload = 'none';
 
-    const source = item.querySelector('source');
-    if (source) {
-      const bgSource = document.createElement('source');
-      bgSource.src = source.src;
-      bgSource.type = source.type;
-      bgElement.appendChild(bgSource);
+      const source = item.querySelector('source');
+      if (source) {
+        const bgSource = document.createElement('source');
+        bgSource.src = source.src;
+        bgSource.type = source.type;
+        bgElement.appendChild(bgSource);
+      }
+    } else {
+      bgElement = document.createElement('img');
+      bgElement.src = item.src;
     }
-  } else {
-    bgElement = document.createElement('img');
-    bgElement.src = item.src;
-  }
 
-  bgElement.classList.add('bg-media');
-  if (idx === 0) bgElement.classList.add('active');
+    bgElement.classList.add('bg-media');
+    if (idx === 0) bgElement.classList.add('active');
 
-  backgroundLayer.appendChild(bgElement);
-  backgroundMedia.push(bgElement);
-});
+    backgroundLayer.appendChild(bgElement);
+    backgroundMedia.push(bgElement);
+  });
+}
 
 /* =========================
    TEXT OVERLAY
@@ -373,8 +343,8 @@ let index = 0;
 let previousMedia = null;
 let previousBgMedia = null;
 
-const FADE_DURATION = 2000;
-const SLIDE_DURATION = 12000;
+const FADE_DURATION = 1500;
+const SLIDE_DURATION = 10000; // Reduced from 12s
 const KENBURNS_DELAY = 2000;
 
 /* =========================
@@ -382,10 +352,11 @@ const KENBURNS_DELAY = 2000;
 ========================= */
 
 function preloadNextVideo() {
-  // Look ahead and preload next video
-  for (let i = index + 1; i < Math.min(index + 3, media.length); i++) {
-    if (media[i].tagName === 'VIDEO' && media[i].readyState < 3) {
-      media[i].load();
+  // Only preload the immediate next video
+  if (index + 1 < media.length && media[index + 1].tagName === 'VIDEO') {
+    const nextVideo = media[index + 1];
+    if (nextVideo.readyState < 2) {
+      nextVideo.load();
     }
   }
 }
@@ -396,11 +367,12 @@ function preloadNextVideo() {
 
 function showMedia() {
   const current = media[index];
-  const currentBg = backgroundMedia[index];
+  const currentBg = !isMobile && backgroundMedia[index] ? backgroundMedia[index] : null;
   const isVideo = current.tagName === "VIDEO";
 
   overlayText.classList.remove('show');
 
+  // Clean up previous media
   if (previousMedia) {
     previousMedia.classList.remove('active', 'kenburns');
     previousMedia.classList.add('previous');
@@ -408,26 +380,29 @@ function showMedia() {
     if (previousMedia.tagName === "VIDEO") {
       previousMedia.pause();
       previousMedia.currentTime = 0;
+      // Unload video to free memory
+      previousMedia.src = "";
+      previousMedia.load();
     }
 
     setTimeout(() => {
       previousMedia.classList.remove('previous');
-      if (previousMedia.tagName === "IMG") {
-        previousMedia.style.transform = '';
-      }
     }, FADE_DURATION);
   }
 
-  if (previousBgMedia) {
+  // Clean up background
+  if (previousBgMedia && !isMobile) {
     previousBgMedia.classList.remove('active');
     if (previousBgMedia.tagName === "VIDEO") {
       previousBgMedia.pause();
       previousBgMedia.currentTime = 0;
+      previousBgMedia.src = "";
+      previousBgMedia.load();
     }
   }
 
   current.classList.add('active');
-  currentBg.classList.add('active');
+  if (currentBg) currentBg.classList.add('active');
 
   if (texts[index]) {
     setTimeout(() => {
@@ -438,65 +413,61 @@ function showMedia() {
 
   /* ===== VIDEO ===== */
   if (isVideo) {
-    // Show loading indicator
-    loading.classList.add('show');
-    
-    // Preload video if not ready
-    if (current.readyState < 3) {
-      current.load();
+    // Load the video
+    const source = current.querySelector('source');
+    if (source && !current.src) {
+      current.src = source.src;
     }
+    current.load();
 
-    // Wait for video to be ready
-    const playVideo = () => {
-      loading.classList.remove('show');
-      
+    const attemptPlay = () => {
       current.currentTime = 0;
-      currentBg.currentTime = 0;
 
       current.play().then(() => {
-        currentBg.play().catch(() => {});
-        preloadNextVideo(); // Preload next videos
-      }).catch(() => {
-        console.error("Video playback failed");
-        setTimeout(nextMedia, 2000);
-      });
-
-      current.onended = () => {
-        nextMedia();
-      };
-
-      // Fallback timeout
-      setTimeout(() => {
-        if (current.classList.contains('active')) {
-          nextMedia();
+        if (currentBg && !isMobile) {
+          currentBg.currentTime = 0;
+          currentBg.play().catch(() => {});
         }
-      }, 60000);
+        preloadNextVideo();
+      }).catch((err) => {
+        console.error("Video play error:", err);
+        // Skip to next if video fails
+        setTimeout(nextMedia, 1000);
+      });
     };
 
-    // If video is ready, play immediately
+    // Wait for video to be ready
     if (current.readyState >= 3) {
-      playVideo();
+      attemptPlay();
     } else {
-      // Wait for video to load
-      current.addEventListener('canplay', playVideo, { once: true });
+      current.addEventListener('canplaythrough', attemptPlay, { once: true });
       
-      // Timeout if video takes too long
+      // Timeout if loading takes too long
       setTimeout(() => {
-        if (!current.classList.contains('playing')) {
-          loading.classList.remove('show');
+        if (current.paused && current.classList.contains('active')) {
+          console.log("Video timeout, skipping...");
           nextMedia();
         }
-      }, 5000);
+      }, 8000);
     }
+
+    // Auto-advance when video ends
+    current.onended = () => {
+      nextMedia();
+    };
+
+    // Maximum video duration fallback
+    setTimeout(() => {
+      if (current.classList.contains('active')) {
+        nextMedia();
+      }
+    }, 45000);
 
   /* ===== IMAGE ===== */
   } else {
-    preloadNextVideo(); // Preload videos while showing image
+    preloadNextVideo();
     
-    setTimeout(() => {
-      current.classList.add('kenburns');
-    }, KENBURNS_DELAY);
-
+    // No Ken Burns effect - just fade
     setTimeout(nextMedia, SLIDE_DURATION);
   }
 
