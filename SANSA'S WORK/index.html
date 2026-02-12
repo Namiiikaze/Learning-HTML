@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Story</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: black;
+  overflow: hidden;
+  font-family: 'Playfair Display', serif;
+}
+
+/* SLIDESHOW CONTAINER */
+.slideshow-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: black;
+}
+
+/* BLURRED BACKGROUND LAYER */
+.background-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.bg-media {
+  position: absolute;
+  inset: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  object-fit: cover;
+  object-position: center;
+  
+  filter: blur(40px) brightness(0.4);
+  transform: scale(1.1);
+  
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.bg-media.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* MAIN SLIDESHOW */
+.slideshow {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.media {
+  position: absolute;
+  
+  max-width: 95%;
+  max-height: 95%;
+  width: auto;
+  height: auto;
+  
+  margin: auto;
+  inset: 0;
+  
+  object-fit: contain;
+  object-position: center;
+
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 2s ease-in-out;
+  
+  filter: drop-shadow(0 0 30px rgba(0,0,0,0.5));
+  
+  /* Hardware acceleration */
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.media.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.media.previous {
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Ken Burns effect - only for images, not videos */
+.media.kenburns:not(video) {
+  transition: opacity 2s ease-in-out, transform 12s ease-in-out;
+  transform: scale(1.15) translateZ(0);
+}
+
+/* Disable Ken Burns on mobile for performance */
+@media (max-width: 768px) {
+  .media.kenburns:not(video) {
+    transform: scale(1) translateZ(0);
+    transition: opacity 2s ease-in-out;
+  }
+}
+
+/* VIDEO OPTIMIZATION */
+video.media {
+  /* Remove transform transitions for videos */
+  transition: opacity 2s ease-in-out !important;
+  transform: none !important;
+}
+
+/* TEXT OVERLAY */
+.overlay-text {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 24px;
+
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+
+  background: rgba(0,0,0,0.15);
+  pointer-events: none;
+
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  z-index: 10;
+}
+
+.overlay-text.show {
+  opacity: 1;
+}
+
+/* MUSIC CONTROLS */
+.music-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.music-control {
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: none;
+
+  background: rgba(255,255,255,0.2);
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.music-control:hover {
+  background: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
+}
+
+.now-playing {
+  padding: 8px 12px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  backdrop-filter: blur(6px);
+  font-size: 12px;
+  text-align: right;
+  max-width: 200px;
+}
+
+img[src$=".HEIC"], img[src$=".heic"] {
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Loading indicator for videos */
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1rem;
+  z-index: 15;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.loading.show {
+  opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="slideshow-container">
+  <!-- BLURRED BACKGROUND LAYER -->
+  <div class="background-layer" id="backgroundLayer"></div>
+
+  <!-- MAIN SLIDESHOW -->
+  <div class="slideshow">
+    <!-- 16 Mixed images and videos -->
+    <img class="media active" src="./WEBSITE/42a0c65d-b160-4ed4-80bd-c836b52ed2aa.jpg" alt="Memory 1">
+    <img class="media" src="./WEBSITE/42ee92d1-5c04-4040-80a0-085c3c52fe2c.jpg" alt="Memory 2">
+    <img class="media" src="./WEBSITE/84f41070-d018-409c-bd7f-386fc5fbf365.jpg" alt="Memory 3">
+    <img class="media" src="./WEBSITE/b63e4ebb-f786-4b40-8076-6599f36e749f.jpg" alt="Memory 4">
+    <img class="media" src="./WEBSITE/c4d3927a-bebc-4c79-b03d-40685e07d01e.jpg" alt="Memory 5">
+    
+    <video class="media" muted playsinline preload="metadata" webkit-playsinline>
+      <source src="./WEBSITE/1fddd105-f408-4577-b60a-3d5b821f4dc7.mp4" type="video/mp4">
+    </video>
+
+    <video class="media" muted playsinline preload="metadata" webkit-playsinline>
+      <source src="./MORE VIDEOS/IMG_8061.MP4" type="video/mp4">
+    </video>
+    
+    <img class="media" src="./WEBSITE/ce585ab2-3a0c-4076-bf81-d518ea238d31.jpg" alt="Memory 6">
+    <img class="media" src="./WEBSITE/fa524c02-e1bf-406e-a9a4-c0d7aafd8e6a.jpg" alt="Memory 7">
+    <img class="media" src="./WEBSITE/IMG_0745.JPG" alt="Memory 8">
+    <img class="media" src="./MORE VIDEOS/WhatsApp Image 2026-02-10 at 4.42.22 PM.jpeg" alt="Memory 9">
+    <img class="media" src="./MORE VIDEOS/WhatsApp Image 2026-02-10 at 4.42.30 PM.jpeg" alt="Memory 10">
+    
+    <video class="media" muted playsinline preload="metadata" webkit-playsinline>
+      <source src="./WEBSITE/4f30b6d5-955f-4b43-a708-e2666a7b5e87.mp4" type="video/mp4">
+    </video>
+    
+    <img class="media" src="./WEBSITE/IMG_1034.JPG" alt="Memory 11">
+    <img class="media" src="./WEBSITE/IMG_1636.PNG" alt="Memory 12">
+    <img class="media" src="./WEBSITE/IMG_2921.JPG" alt="Memory 13">
+  </div>
+</div>
+
+<!-- Text Overlay -->
+<div class="overlay-text" id="overlayText"></div>
+
+<!-- Loading Indicator -->
+<div class="loading" id="loading">Loading...</div>
+
+<!-- Background Music (1 song) -->
+<audio id="song1" preload="auto">
+  <source src="./WEBSITE/Savy_Henry_-_LOML__A_Performance_Video_128k.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-controls">
+  <div class="now-playing" id="nowPlaying">♪ LOML - Savy Henry</div>
+  <button class="music-control" id="musicBtn">Play Music</button>
+</div>
+
+<script>
+const media = [...document.querySelectorAll('.slideshow .media')];
+const backgroundLayer = document.getElementById('backgroundLayer');
+const overlayText = document.getElementById('overlayText');
+const musicBtn = document.getElementById('musicBtn');
+const nowPlaying = document.getElementById('nowPlaying');
+const loading = document.getElementById('loading');
+
+/* =========================
+   MUSIC SYSTEM
+========================= */
+
+const backgroundMusic = document.getElementById('song1');
+let isMusicPlaying = false;
+
+// Prepare music
+backgroundMusic.volume = 0.7;
+backgroundMusic.loop = true;
+
+/* --- Browser Autoplay Unlock --- */
+document.addEventListener('click', () => {
+  backgroundMusic.play().then(() => {
+    isMusicPlaying = true;
+    musicBtn.textContent = "Pause Music";
+  }).catch(() => {});
+}, { once: true });
+
+/* --- Toggle Music --- */
+function toggleMusic() {
+  if (isMusicPlaying) {
+    backgroundMusic.pause();
+    musicBtn.textContent = "Play Music";
+    isMusicPlaying = false;
+  } else {
+    backgroundMusic.play().then(() => {
+      musicBtn.textContent = "Pause Music";
+      nowPlaying.textContent = "♪ LOML - Savy Henry";
+      isMusicPlaying = true;
+    }).catch(err => console.error(err));
+  }
+}
+musicBtn.onclick = toggleMusic;
+
+/* =========================
+   BACKGROUND LAYER
+========================= */
+
+const backgroundMedia = [];
+
+media.forEach((item, idx) => {
+  let bgElement;
+
+  if (item.tagName === 'VIDEO') {
+    bgElement = document.createElement('video');
+    bgElement.muted = true;
+    bgElement.playsInline = true;
+    bgElement.preload = 'metadata'; // Changed from 'auto' for performance
+
+    const source = item.querySelector('source');
+    if (source) {
+      const bgSource = document.createElement('source');
+      bgSource.src = source.src;
+      bgSource.type = source.type;
+      bgElement.appendChild(bgSource);
+    }
+  } else {
+    bgElement = document.createElement('img');
+    bgElement.src = item.src;
+  }
+
+  bgElement.classList.add('bg-media');
+  if (idx === 0) bgElement.classList.add('active');
+
+  backgroundLayer.appendChild(bgElement);
+  backgroundMedia.push(bgElement);
+});
+
+/* =========================
+   TEXT OVERLAY
+========================= */
+
+const texts = [
+  "A Story of Us ❤️",
+  "When We First Met…",
+  "That Moment Our Eyes Connected",
+  "The First Smile You Gave Me",
+  "Our First Adventure Together",
+  "Every Moment With You",
+  "Living in the Moment",
+  "Making Memories Together",
+  "Learning Each Other's Dreams",
+  "Lazy Sundays, Endless Talks",
+  "The Way You Make Me Laugh",
+  "Captured Joy",
+  "Our Love in Motion",
+  "Sweet Spontaneous Moments",
+  "Together We're Unstoppable",
+  "Laughter and Light"
+];
+
+let index = 0;
+let previousMedia = null;
+let previousBgMedia = null;
+
+const FADE_DURATION = 2000;
+const SLIDE_DURATION = 12000;
+const KENBURNS_DELAY = 2000;
+
+/* =========================
+   VIDEO PRELOADING
+========================= */
+
+function preloadNextVideo() {
+  // Look ahead and preload next video
+  for (let i = index + 1; i < Math.min(index + 3, media.length); i++) {
+    if (media[i].tagName === 'VIDEO' && media[i].readyState < 3) {
+      media[i].load();
+    }
+  }
+}
+
+/* =========================
+   SLIDESHOW
+========================= */
+
+function showMedia() {
+  const current = media[index];
+  const currentBg = backgroundMedia[index];
+  const isVideo = current.tagName === "VIDEO";
+
+  overlayText.classList.remove('show');
+
+  if (previousMedia) {
+    previousMedia.classList.remove('active', 'kenburns');
+    previousMedia.classList.add('previous');
+
+    if (previousMedia.tagName === "VIDEO") {
+      previousMedia.pause();
+      previousMedia.currentTime = 0;
+    }
+
+    setTimeout(() => {
+      previousMedia.classList.remove('previous');
+      if (previousMedia.tagName === "IMG") {
+        previousMedia.style.transform = '';
+      }
+    }, FADE_DURATION);
+  }
+
+  if (previousBgMedia) {
+    previousBgMedia.classList.remove('active');
+    if (previousBgMedia.tagName === "VIDEO") {
+      previousBgMedia.pause();
+      previousBgMedia.currentTime = 0;
+    }
+  }
+
+  current.classList.add('active');
+  currentBg.classList.add('active');
+
+  if (texts[index]) {
+    setTimeout(() => {
+      overlayText.textContent = texts[index];
+      overlayText.classList.add('show');
+    }, FADE_DURATION);
+  }
+
+  /* ===== VIDEO ===== */
+  if (isVideo) {
+    // Show loading indicator
+    loading.classList.add('show');
+    
+    // Preload video if not ready
+    if (current.readyState < 3) {
+      current.load();
+    }
+
+    // Wait for video to be ready
+    const playVideo = () => {
+      loading.classList.remove('show');
+      
+      current.currentTime = 0;
+      currentBg.currentTime = 0;
+
+      current.play().then(() => {
+        currentBg.play().catch(() => {});
+        preloadNextVideo(); // Preload next videos
+      }).catch(() => {
+        console.error("Video playback failed");
+        setTimeout(nextMedia, 2000);
+      });
+
+      current.onended = () => {
+        nextMedia();
+      };
+
+      // Fallback timeout
+      setTimeout(() => {
+        if (current.classList.contains('active')) {
+          nextMedia();
+        }
+      }, 60000);
+    };
+
+    // If video is ready, play immediately
+    if (current.readyState >= 3) {
+      playVideo();
+    } else {
+      // Wait for video to load
+      current.addEventListener('canplay', playVideo, { once: true });
+      
+      // Timeout if video takes too long
+      setTimeout(() => {
+        if (!current.classList.contains('playing')) {
+          loading.classList.remove('show');
+          nextMedia();
+        }
+      }, 5000);
+    }
+
+  /* ===== IMAGE ===== */
+  } else {
+    preloadNextVideo(); // Preload videos while showing image
+    
+    setTimeout(() => {
+      current.classList.add('kenburns');
+    }, KENBURNS_DELAY);
+
+    setTimeout(nextMedia, SLIDE_DURATION);
+  }
+
+  previousMedia = current;
+  previousBgMedia = currentBg;
+}
+
+/* =========================
+   NEXT SLIDE
+========================= */
+
+function nextMedia() {
+  // When slideshow ends, redirect to letter page
+  if (index >= media.length - 1) {
+    // Fade out music
+    let fadeOutInterval = setInterval(() => {
+      if (backgroundMusic.volume > 0.05) {
+        backgroundMusic.volume -= 0.05;
+      } else {
+        clearInterval(fadeOutInterval);
+        backgroundMusic.pause();
+        // Redirect to letter page
+        window.location.href = "letter.html";
+      }
+    }, 100);
+    return;
+  }
+
+  index++;
+  showMedia();
+}
+
+/* =========================
+   START
+========================= */
+
+overlayText.textContent = texts[0];
+overlayText.classList.add('show');
+
+showMedia();
+</script>
+
+</body>
+</html>

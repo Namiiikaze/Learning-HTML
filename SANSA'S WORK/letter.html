@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Love</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to bottom, #000000, #58544f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Paper */
+.paper {
+  width: 92%;
+  max-width: 750px;
+  height: 92vh;
+  background: #fffdf8;
+  padding: 40px 35px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.2);
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Subtle texture */
+.paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+}
+
+/* Letter */
+#typedLetter {
+  white-space: pre-wrap;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  line-height: 1.8;
+  color: #2b1e16;
+  text-align: center;
+  max-width: 100%;
+}
+
+/* Cursor */
+.cursor {
+  display: inline-block;
+  width: 8px;
+  background: #2b1e16;
+  margin-left: 3px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Fade in */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Play button overlay */
+.play-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.play-overlay.hidden {
+  display: none;
+}
+
+.play-button {
+  width: 80px;
+  height: 80px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+}
+
+.play-button::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 25px solid #2b1e16;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  margin-left: 5px;
+}
+
+.play-text {
+  color: #fff;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  position: absolute;
+  bottom: 40%;
+}
+</style>
+</head>
+<body>
+
+<!-- Play button overlay -->
+<div class="play-overlay" id="playOverlay">
+  <div style="text-align: center;">
+    <div class="play-button"></div>
+    <div class="play-text">Tap to begin</div>
+  </div>
+</div>
+
+<div class="paper fade-in">
+  <div id="typedLetter"></div>
+</div>
+
+<audio id="voiceNote" preload="auto">
+  <source src="./MORE VIDEOS/WhatsApp Ptt 2026-02-12 at 7.16.02 AM.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const typedLetter = document.getElementById("typedLetter");
+const voiceNote = document.getElementById("voiceNote");
+const playOverlay = document.getElementById("playOverlay");
+
+const letterText = `My Love,
+
+This Day, I find myself smiling as I think about you and everything you mean to me.
+
+Loving you has been one of the most beautiful feelings I've ever known, and I'm grateful for you in ways I sometimes struggle to put into words.
+
+You make me feel safe, valued, and understood. In your presence, I feel calm, and in your love, I feel strong.
+
+Ololufe mi, Enibiokan mi, my priceless Jewel. Thank you for the way you care, for the way you listen, and for the quiet effort you put into loving me every day.
+
+You are not just my partner, you are my friend, my support, and my happiness. Being with you reminds me that love doesn't have to be loud to be deep.
+
+Today is a reminder of us and the love we share. I choose you with my whole heart, today, always and forever.
+
+Happy Valentine's Day baby girl,
+
+Daddy loves you ❤️`;
+
+let hasStarted = false;
+
+function typeWriter(text, speed) {
+  let i = 0;
+  typedLetter.innerHTML = "";
+  const cursor = document.createElement("span");
+  cursor.classList.add("cursor");
+  typedLetter.appendChild(cursor);
+
+  function typing() {
+    if (i < text.length) {
+      cursor.insertAdjacentText("beforebegin", text.charAt(i));
+      i++;
+      setTimeout(typing, speed);
+    } else {
+      cursor.remove();
+    }
+  }
+
+  typing();
+}
+
+function startExperience() {
+  if (hasStarted) return;
+  hasStarted = true;
+  
+  playOverlay.classList.add("hidden");
+  
+  // Start typing with slower speed (changed from 32 to 65)
+  typeWriter(letterText, 65);
+  
+  // Play audio
+  voiceNote.play().catch(err => {
+    console.log("Audio playback failed:", err);
+  });
+}
+
+// Start on click
+playOverlay.addEventListener("click", startExperience);
+
+// Fallback: also allow starting by clicking anywhere after overlay is dismissed
+document.addEventListener("click", () => {
+  if (!hasStarted && playOverlay.classList.contains("hidden")) {
+    startExperience();
+  }
+});
+</script>
+
+</body>
+</html>
