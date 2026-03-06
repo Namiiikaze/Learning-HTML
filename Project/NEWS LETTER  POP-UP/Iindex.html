@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News-letter-popup</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <a class="button" onclick="toogleNewsLetter()"> Subscribe Us</a>
+    <div clsss="hidden" id="newsLetter">
+        <h2>Join our Exclusive News Letter</h2>
+        <p>Follow my channel for more amazing contents</p>
+        <div class="box">
+            <input type="email" placeholder="Enter Email">
+        </div>
+        <div class="box">
+            <button type="submit">Sign up</button>
+        </div>
+    </div>
+
+   <a class="close" onclick="toogleNewsLetter()">
+    <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
