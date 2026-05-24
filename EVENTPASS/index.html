@@ -494,9 +494,10 @@ textarea.input { resize: vertical; min-height: 80px; }
   position: fixed; top: 0; right: 0; bottom: 0; z-index: 100; width: 440px; max-width: 92vw;
   background: var(--bg); border-left: 1px solid var(--border); box-shadow: var(--sh-xl);
   display: flex; flex-direction: column;
-  transform: translateX(105%); transition: transform 0.5s var(--spring);
+  transform: translateX(105%); visibility: hidden;
+  transition: transform 0.5s var(--spring), visibility 0s linear 0.5s;
 }
-.drawer.open { transform: translateX(0); }
+.drawer.open { transform: translateX(0); visibility: visible; transition: transform 0.5s var(--spring), visibility 0s; }
 .drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
 .dh-info { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .dh-avatar { width: 44px; height: 44px; border-radius: var(--r-full); display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 16px; flex-shrink: 0; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.25); }
@@ -514,6 +515,10 @@ textarea.input { resize: vertical; min-height: 80px; }
 @media (max-width: 560px) {
   .drawer { top: auto; left: 0; right: 0; width: 100%; max-width: 100%; height: 92vh; border-left: none; border-top: 1px solid var(--border); border-radius: var(--r-xl) var(--r-xl) 0 0; transform: translateY(105%); }
   .drawer.open { transform: translateY(0); }
+  .drawer-body .pass-wrap { padding: 10px; overflow: hidden; display: flex; justify-content: center; }
+  .drawer-body .pass { transform: scale(0.8); transform-origin: center; margin: -22px -28px; }
+  .drawer-body .swatches { gap: 7px; justify-content: flex-start; }
+  .drawer-body .swatch { width: 30px; height: 30px; }
 }
 .modal-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; }
 .modal-head h2 { font-family: var(--font-display); font-size: 23px; }
@@ -621,14 +626,14 @@ textarea.input { resize: vertical; min-height: 80px; }
   .page-head h1 { font-size: 27px; }
   .pass { transform: scale(0.92); }
   .hero { overflow-x: clip; }
-  .hero-art { min-height: 260px; width: 100%; overflow: visible; }
-  .hero-art .pass { transform: rotate(-3deg) scale(0.8); transform-origin: center; }
-  .hero-art .float-badge { font-size: 11px; padding: 7px 11px; }
+  .hero-art { min-height: 240px; width: 100%; max-width: 100%; overflow: visible; display: grid; place-items: center; }
+  .hero-art .pass { transform: rotate(-2deg) scale(0.82); transform-origin: center; }
+  .hero-art .float-badge { font-size: 10.5px; padding: 6px 10px; }
+  .hero-art .float-badge.fb-1 { top: 10%; left: 8%; }
+  .hero-art .float-badge.fb-2 { bottom: 10%; right: 8%; }
   .toasts { left: 18px; right: 18px; bottom: 18px; }
   .toast { min-width: 0; }
   .features { grid-template-columns: 1fr; }
-  .float-badge.fb-1 { left: 0; }
-  .float-badge.fb-2 { right: 0; }
   .section-intro h2 { font-size: 26px; }
   .cta-band { width: calc(100% - 36px); padding: 40px 22px; }
   .cta-band h2 { font-size: 25px; }
@@ -1530,36 +1535,41 @@ function renderPass() {
 
 function qrDataUrl(text, size = 256) {
   try {
-    // Render QR with no padding, then re-center its dark-module bounding box
-    // onto a clean square canvas so the pattern is always perfectly centered.
     const q = new QRious({ value: text, size, foreground: '#16241d', background: '#ffffff', level: 'M', padding: 0 });
     const src = q.canvas;
+    if (!src || !src.getContext) return q.toDataURL('image/png');
+    const W = src.width, H = src.height;           // use the canvas's real size
     const ctx0 = src.getContext('2d');
-    const data = ctx0.getImageData(0, 0, size, size).data;
-    // find bounding box of dark pixels
-    let minX = size, minY = size, maxX = 0, maxY = 0, found = false;
-    for (let y = 0; y < size; y++) {
-      for (let x = 0; x < size; x++) {
-        const i = (y * size + x) * 4;
-        if (data[i] < 128) { found = true; if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y; }
+    let data;
+    try { data = ctx0.getImageData(0, 0, W, H).data; }
+    catch (e) { return q.toDataURL('image/png'); }   // fallback if unreadable
+    // bounding box of dark modules
+    let minX = W, minY = H, maxX = 0, maxY = 0, found = false;
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        const i = (y * W + x) * 4;
+        if (data[i] < 128 && data[i + 3] > 10) { found = true; if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y; }
       }
     }
     if (!found) return q.toDataURL('image/png');
     const w = maxX - minX + 1, h = maxY - minY + 1;
     const qrDim = Math.max(w, h);
-    const quiet = Math.round(qrDim * 0.10);            // symmetric quiet zone
+    const quiet = Math.round(qrDim * 0.10);
     const out = qrDim + quiet * 2;
     const cv = document.createElement('canvas');
     cv.width = out; cv.height = out;
     const ctx = cv.getContext('2d');
     ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, out, out);
-    // center the cropped QR (handles non-square bbox too)
     const dx = quiet + Math.round((qrDim - w) / 2);
     const dy = quiet + Math.round((qrDim - h) / 2);
     ctx.imageSmoothingEnabled = false;
     ctx.drawImage(src, minX, minY, w, h, dx, dy, w, h);
     return cv.toDataURL('image/png');
-  } catch (e) { return ''; }
+  } catch (e) {
+    // last-resort: plain QR so a code always appears
+    try { return new QRious({ value: text, size, level: 'M' }).toDataURL('image/png'); }
+    catch (_) { return ''; }
+  }
 }
 
 /* ---------- QR verification ---------- */
