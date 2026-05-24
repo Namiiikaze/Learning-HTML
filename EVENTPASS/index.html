@@ -106,6 +106,7 @@ body {
   -webkit-font-smoothing: antialiased;
   transition: background 0.4s var(--ease), color 0.4s var(--ease);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 { line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; }
@@ -429,8 +430,8 @@ textarea.input { resize: vertical; min-height: 80px; }
   transition: transform 0.4s var(--ease);
 }
 .pass-wrap:hover .pass { transform: translateY(-4px) scale(1.01); }
-.pass .qr { background: #fff; border-radius: 10px; padding: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.18); flex-shrink: 0; animation: qrPop 0.5s var(--spring) both; }
-.pass .qr img { display: block; width: 76px; height: 76px; }
+.pass .qr { background: #fff; border-radius: 10px; padding: 7px; box-shadow: 0 4px 14px rgba(0,0,0,0.18); flex-shrink: 0; display: grid; place-items: center; line-height: 0; animation: qrPop 0.5s var(--spring) both; }
+.pass .qr img { display: block; width: 76px; height: 76px; object-fit: contain; }
 
 .pass-head { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
 .pass-status { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.92; display: inline-flex; align-items: center; gap: 5px; }
@@ -619,7 +620,10 @@ textarea.input { resize: vertical; min-height: 80px; }
   .row-2 { grid-template-columns: 1fr; }
   .page-head h1 { font-size: 27px; }
   .pass { transform: scale(0.92); }
-  .hero-art .pass { transform: rotate(-4deg) scale(0.94); }
+  .hero { overflow-x: clip; }
+  .hero-art { min-height: 260px; width: 100%; overflow: visible; }
+  .hero-art .pass { transform: rotate(-3deg) scale(0.8); transform-origin: center; }
+  .hero-art .float-badge { font-size: 11px; padding: 7px 11px; }
   .toasts { left: 18px; right: 18px; bottom: 18px; }
   .toast { min-width: 0; }
   .features { grid-template-columns: 1fr; }
@@ -647,6 +651,9 @@ textarea.input { resize: vertical; min-height: 80px; }
 }
 @media (max-width: 420px) {
   .footer-cols { grid-template-columns: 1fr; }
+  .hero-art .pass { transform: rotate(-3deg) scale(0.74); }
+  .hero-art { min-height: 230px; }
+  .hero h1 { font-size: 31px; }
 }
 
 </style>
