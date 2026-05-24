@@ -430,8 +430,8 @@ textarea.input { resize: vertical; min-height: 80px; }
   transition: transform 0.4s var(--ease);
 }
 .pass-wrap:hover .pass { transform: translateY(-4px) scale(1.01); }
-.pass .qr { background: #fff; border-radius: 10px; padding: 7px; box-shadow: 0 4px 14px rgba(0,0,0,0.18); flex-shrink: 0; display: grid; place-items: center; line-height: 0; animation: qrPop 0.5s var(--spring) both; }
-.pass .qr img { display: block; width: 76px; height: 76px; object-fit: contain; }
+.pass .qr { background: #fff; border-radius: 10px; padding: 4px; box-shadow: 0 4px 14px rgba(0,0,0,0.18); flex-shrink: 0; display: grid; place-items: center; line-height: 0; animation: qrPop 0.5s var(--spring) both; }
+.pass .qr img { display: block; width: 78px; height: 78px; object-fit: contain; }
 
 .pass-head { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
 .pass-status { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.92; display: inline-flex; align-items: center; gap: 5px; }
@@ -1528,10 +1528,37 @@ function renderPass() {
   hydrateIcons(card);
 }
 
-function qrDataUrl(text, size = 240) {
+function qrDataUrl(text, size = 256) {
   try {
+    // Render QR with no padding, then re-center its dark-module bounding box
+    // onto a clean square canvas so the pattern is always perfectly centered.
     const q = new QRious({ value: text, size, foreground: '#16241d', background: '#ffffff', level: 'M', padding: 0 });
-    return q.toDataURL('image/png');
+    const src = q.canvas;
+    const ctx0 = src.getContext('2d');
+    const data = ctx0.getImageData(0, 0, size, size).data;
+    // find bounding box of dark pixels
+    let minX = size, minY = size, maxX = 0, maxY = 0, found = false;
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const i = (y * size + x) * 4;
+        if (data[i] < 128) { found = true; if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y; }
+      }
+    }
+    if (!found) return q.toDataURL('image/png');
+    const w = maxX - minX + 1, h = maxY - minY + 1;
+    const qrDim = Math.max(w, h);
+    const quiet = Math.round(qrDim * 0.10);            // symmetric quiet zone
+    const out = qrDim + quiet * 2;
+    const cv = document.createElement('canvas');
+    cv.width = out; cv.height = out;
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, out, out);
+    // center the cropped QR (handles non-square bbox too)
+    const dx = quiet + Math.round((qrDim - w) / 2);
+    const dy = quiet + Math.round((qrDim - h) / 2);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(src, minX, minY, w, h, dx, dy, w, h);
+    return cv.toDataURL('image/png');
   } catch (e) { return ''; }
 }
 
